@@ -17,6 +17,9 @@
 	<link rel="stylesheet" href="leaflet.zoomhome.css"/>
 	<script src="leaflet.zoomhome.min.js"></script>
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
 	<style>
 		#map {
 			width: 100%;
@@ -96,7 +99,7 @@
 	};
 
 		info.update = function (props) {
-		this._div.innerHTML =  (props ? props.attributes_na_name + '<h4>Winning Party: </h4>' + props.attributes_winner_party + '<h4>Winning Candidate: </h4>' + props.attributes_winner + '<h4> Runner-up Party: </h4>' + props.attributes_runnerup_party_cat + '<h4>Runner-up Candidate: </h4>' + props.attributes_runnerup + '<h4>Victory Margin: </h4>' + props.attributes_victory_margin + ' % <h4>Turnout: </h4>' + props.attributes_turnout + '%'
+		this._div.innerHTML =  (props ? props.attributes2013_na_name + '<h4>Winning Party: </h4>' + props.attributes2013_winner_party + '<h4>Winning Candidate: </h4>' + props.attributes2013_winner + '<h4> Runner-up Party: </h4>' + props.attributes2013_runnerup_party_cat + '<h4>Runner-up Candidate: </h4>' + props.attributes2013_runnerup + '<h4>Victory Margin: </h4>' + props.attributes2013_victory_margin + ' % <h4>Turnout: </h4>' + props.attributes2013_turnout + '%'
 			: 'Hover over map to see details');
 	};
 
@@ -123,7 +126,7 @@
 			color: 'white',
 			dashArray: '1',
 			fillOpacity: 0.6,
-			fillColor: getColor(feature.properties.attributes_win_party_cat)
+			fillColor: getColor(feature.properties.attributes2013_winner_party_cat)
 		};
 	}
 
@@ -164,7 +167,7 @@
 
 	var geojson;
 
-	geojson = L.geoJson(pakistan, {
+	geojson = L.geoJson(electionmap2013, {
 		style: style,
 		onEachFeature: onEachFeature
 	}).addTo(map);
@@ -190,6 +193,119 @@
 	};
 
 	legend.addTo(map);
+
+	// http://www.coffeegnome.net/creating-contr…button-leaflet
+	var show2013 =  L.Control.extend({
+
+	options: {
+	position: 'topleft'
+	},
+
+	onAdd: function (map) {
+	var container = L.DomUtil.create('input');
+	container.type="button";
+	container.title="2013 Results";
+	container.value = "2013";
+
+	container.style.backgroundColor = 'grey';     
+	//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
+	container.style.backgroundSize = "30px 30px";
+	container.style.width = '50px';
+	container.style.height = '30px';
+
+	container.onmouseover = function(){
+	  container.style.backgroundColor = 'pink'; 
+	}
+	container.onmouseout = function(){
+	  container.style.backgroundColor = 'grey'; 
+	}
+
+	container.onclick = function(){
+	  console.log('buttonClicked');
+	}
+
+	return container;
+	}
+	});
+
+	var show2008 =  L.Control.extend({
+
+	options: {
+	position: 'topleft'
+	},
+
+	onAdd: function (map) {
+	var container = L.DomUtil.create('input');
+	container.type="button";
+	container.title="2008 Results";
+	container.value = "2008";
+
+	container.style.backgroundColor = 'white';     
+	//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
+	container.style.backgroundSize = "30px 30px";
+	container.style.width = '50px';
+	container.style.height = '30px';
+
+	container.onmouseover = function(){
+	  container.style.backgroundColor = 'pink'; 
+	}
+	container.onmouseout = function(){
+	  container.style.backgroundColor = 'white'; 
+	}
+
+	container.onclick = function(){
+	  console.log('buttonClicked');
+	}
+
+	return container;
+	}
+	});
+
+	var show2002 =  L.Control.extend({
+
+	options: {
+	position: 'topleft'
+	},
+
+	onAdd: function (map) {
+	var container = L.DomUtil.create('input');
+	container.type="button";
+	container.title="2002 Results";
+	container.value = "2002";
+
+	container.style.backgroundColor = 'white';     
+	//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
+	container.style.backgroundSize = "30px 30px";
+	container.style.width = '50px';
+	container.style.height = '30px';
+
+	container.onmouseover = function(){
+	  container.style.backgroundColor = 'pink'; 
+	}
+	container.onmouseout = function(){
+	  container.style.backgroundColor = 'white'; 
+	}
+
+	container.onclick = function(){
+	  console.log('buttonClicked');
+	}
+
+	return container;
+	}
+	});
+
+	map.addControl(new show2013);
+	map.addControl(new show2008);
+	map.addControl(new show2002);
+
+	//var map;
+	//var readyState = function(e){
+	//map = new L.Map('map').setView([48.935, 18.14], 14);
+	//L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+	//map.addControl(new customControl());
+	//}
+
+	//window.addEventListener('DOMContentLoaded', readyState);
 
 	
 	</script>
