@@ -231,16 +231,19 @@
 					{
 						console.log('buttonClicked');
 						// 1. Change datasource to new dataSource
-						geojson.clearLayer();
-						geojson.addData(dataSource);
-						
+						geojson.removeLayer();
+						L.geoJson(dataSource, {
+							style: style,
+							onEachFeature: onEachFeature
+						}).addTo(map);
+
 						// 2. Change legend
 						// 3. Add active class to btn
 						for (var i = yearButtons.length - 1; i >= 0; i--)
 						{
-							yearButtons[i].getContainer().removeClass('active');
+							L.DomUtil.removeClass(yearButtons[i].getContainer(), 'active');
 						}
-						container.addClass('active');
+						L.DomUtil.addClass(container, 'active');
 					}
 
 					return container;
