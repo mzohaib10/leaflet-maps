@@ -2,80 +2,99 @@
 
 <html>
 
-	<head>
-		<title>Pakistan Election Results 2002-2013</title>
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-	   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-	   crossorigin=""/>
+<head>
+	<title>Pakistan Election Results 2002-2013</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+	integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+	crossorigin=""/>
 
-	   <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-	   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-	   crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+	integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+	crossorigin=""></script>
 
-	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
-	   
-	   <link rel="stylesheet" href="leaflet.zoomhome.css"/>
-	   
-	   <script src="leaflet.zoomhome.min.js"></script>
-	   
-	   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
-	   <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
-	   
-	   <style>
-		#map {
-			width: 100%;
-			height: 700px;
-		}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
 
-		.info {
-			  line-height: 1;
-			  font-weight: bold;
-			  padding: 20px;
-			  background: rgba(0, 0, 0, 0.8);
-			  color: #fff;
-			  border-radius: 2px;
-		}
-		.info h4 {
-			margin: 0 0 5px;
-			color: #777;
-		}
+	<link rel="stylesheet" href="leaflet.zoomhome.css"/>
 
-		.legend {
-			text-align: left;
-			line-height: 18px;
-			color: #777;
-			background: white;
-			background: rgba(255,255,255,0.8);
-		}
-		.legend i {
-			width: 18px;
-			height: 18px;
-			float: left;
-			margin-right: 8px;
-			opacity: 0.8;
-		}
+	<script src="leaflet.zoomhome.min.js"></script>
 
-		#map {
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+	<style>
+	#map {
+		width: 100%;
+		height: 700px;
+	}
+
+	.info {
+		line-height: 1;
+		font-weight: bold;
+		padding: 20px;
+		background: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		border-radius: 2px;
+	}
+	.info h4 {
+		margin: 0 0 5px;
+		color: #777;
+	}
+
+	.legend {
+		text-align: left;
+		line-height: 18px;
+		color: #777;
+		background: white;
+		background: rgba(255,255,255,0.8);
+	}
+	.legend i {
+		width: 18px;
+		height: 18px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.8;
+	}
+
+	.year-button
+	{
+		background-color: white;
+		width: 50px;
+		height: 30px;
+	}
+
+	.year-button:hover
+	{
+		background-color: pink;
+	}
+
+	.year-button.active
+	{
+		background-color: grey;
+	}
+
+	#map {
 		width: 100%;
 		height: 700px;
 		z-index: 0;
-		}
+	}
 
-		.leaflet-container {
+	.leaflet-container {
 		background: #ffffff;
-		}
-	    </style>
+	}
+</style>
 
-	</head>
+</head>
 
-	<body>
+<body>
 
 	<!-- define a the area the map will go into. Feel free to change the size as needed -->
 	<div id="map" style="width:1000px; height: 700px;"></div>
 
-		<script type="text/javascript" src="./pakistanelectionmap2013.geojson"></script>
+	<script type="text/javascript" src="./pakistanelectionmap2013.geojson"></script>
+	<script type="text/javascript" src="./pakistanelectionmap2008.geojson"></script>
+	<script type="text/javascript" src="./pakistanelectionmap2002.geojson"></script>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 
 		var coords = [30.50, 69.34]; // the geographic center of our map
 		var zoomLevel = 6; // the map scale. See: http://wiki.openstreetmap.org/wiki/Zoom_levels
@@ -99,7 +118,7 @@
 			return this._div;
 		};
 
-			info.update = function (props) {
+		info.update = function (props) {
 			this._div.innerHTML =  (props ? props.attributes2013_na_name + '<h4>Winning Party: </h4>' + props.attributes2013_winner_party + '<h4>Winning Candidate: </h4>' + props.attributes2013_winner + '<h4> Runner-up Party: </h4>' + props.attributes2013_runnerup_party_cat + '<h4>Runner-up Candidate: </h4>' + props.attributes2013_runnerup + '<h4>Victory Margin: </h4>' + props.attributes2013_victory_margin + ' % <h4>Turnout: </h4>' + props.attributes2013_turnout + '%'
 				: 'Hover over map to see details');
 		};
@@ -111,13 +130,13 @@
 		// get color depending on winning party value
 		function getColor(d) {
 			return d == 'Pakistan Muslim League (N)' ? '#1b9e77' :
-				   d == 'Pakistan Tehreek-e-Insaf' ? '#d95f02' :
-			       d == 'Pakistan Peoples Party Parliamentarians'  ? '#7570b3' :
-			       d == 'Jamiat Ulama-e-Islam (F)'  ? '#e7298a' :
-			       d == 'Muttahidda Qaumi Movement'  ? '#a6761d' :
-			       d == 'Independent'  ? '#66a61e' :
-			       d == 'Other' ? '#e6ab02' :
-			                  '#666666';
+			d == 'Pakistan Tehreek-e-Insaf' ? '#d95f02' :
+			d == 'Pakistan Peoples Party Parliamentarians'  ? '#7570b3' :
+			d == 'Jamiat Ulama-e-Islam (F)'  ? '#e7298a' :
+			d == 'Muttahidda Qaumi Movement'  ? '#a6761d' :
+			d == 'Independent'  ? '#66a61e' :
+			d == 'Other' ? '#e6ab02' :
+			'#666666';
 		}
 
 		function style(feature) {
@@ -180,8 +199,8 @@
 		legend.onAdd = function (map) {
 
 			var div = L.DomUtil.create('div', 'info legend'),
-				parties = ['Pakistan Muslim League (N)', 'Pakistan Tehreek-e-Insaf', 'Pakistan Peoples Party Parliamentarians', 'Jamiat Ulama-e-Islam (F)', 'Muttahidda Qaumi Movement', 'Independent', 'Other'],
-				labels = [];
+			parties = ['Pakistan Muslim League (N)', 'Pakistan Tehreek-e-Insaf', 'Pakistan Peoples Party Parliamentarians', 'Jamiat Ulama-e-Islam (F)', 'Muttahidda Qaumi Movement', 'Independent', 'Other'],
+			labels = [];
 
 			for (var i = 0; i < parties.length; i++) {
 
@@ -195,109 +214,58 @@
 
 		legend.addTo(map);
 
+		var yearButtons = [];
+		var yearButton = function(year, dataSource)
+		{
+			var btn = L.Control.extend(
+			{
+				options: {
+					position: 'topleft'
+				},
+
+				onAdd: function (map) {
+					var container = L.DomUtil.create('input', 'year-button');
+					container.type="button";
+					container.title=year + " Results";
+					container.value = year;
+
+					//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
+					container.style.backgroundSize = "30px 30px";
+
+					container.onclick = function()
+					{
+						console.log('buttonClicked');
+						// 1. Change datasource to new dataSource
+						geojson.clearLayer();
+						geojson.addData(dataSource);
+						
+						// 2. Change legend
+						// 3. Add active class to btn
+						for (var i = yearButtons.length - 1; i >= 0; i--)
+						{
+							yearButtons[i].getContainer().removeClass('active');
+						}
+						container.addClass('active');
+					}
+
+					return container;
+				}
+			});
+			yearButtons.push(new btn);
+		};
+
+		// Create three instances of year buttons
+		yearButton(2013, electionmap2013);
+		yearButton(2008, electionmap2008);
+		yearButton(2002, electionmap2002);
+
 		// http://www.coffeegnome.net/creating-contr…button-leaflet
-		var show2013 =  L.Control.extend({
 
-		options: {
-		position: 'topleft'
-		},
-
-		onAdd: function (map) {
-		var container = L.DomUtil.create('input');
-		container.type="button";
-		container.title="2013 Results";
-		container.value = "2013";
-
-		container.style.backgroundColor = 'grey';     
-		//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
-		container.style.backgroundSize = "30px 30px";
-		container.style.width = '50px';
-		container.style.height = '30px';
-
-		container.onmouseover = function(){
-		  container.style.backgroundColor = 'pink'; 
+		for (var i = yearButtons.length - 1; i >= 0; i--)
+		{
+			console.log(yearButtons[i]);
+			map.addControl(yearButtons[i]);
 		}
-		container.onmouseout = function(){
-		  container.style.backgroundColor = 'grey'; 
-		}
-
-		container.onclick = function(){
-		  console.log('buttonClicked');
-		}
-
-		return container;
-		}
-		});
-
-		var show2008 =  L.Control.extend({
-
-		options: {
-		position: 'topleft'
-		},
-
-		onAdd: function (map) {
-		var container = L.DomUtil.create('input');
-		container.type="button";
-		container.title="2008 Results";
-		container.value = "2008";
-
-		container.style.backgroundColor = 'white';     
-		//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
-		container.style.backgroundSize = "30px 30px";
-		container.style.width = '50px';
-		container.style.height = '30px';
-
-		container.onmouseover = function(){
-		  container.style.backgroundColor = 'pink'; 
-		}
-		container.onmouseout = function(){
-		  container.style.backgroundColor = 'white'; 
-		}
-
-		container.onclick = function(){
-		  	console.log('buttonClicked');
-		}
-
-		return container;
-		}
-		});
-
-		var show2002 =  L.Control.extend({
-
-		options: {
-		position: 'topleft'
-		},
-
-		onAdd: function (map) {
-		var container = L.DomUtil.create('input');
-		container.type="button";
-		container.title="2002 Results";
-		container.value = "2002";
-
-		container.style.backgroundColor = 'white';     
-		//container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
-		container.style.backgroundSize = "30px 30px";
-		container.style.width = '50px';
-		container.style.height = '30px';
-
-		container.onmouseover = function(){
-		  container.style.backgroundColor = 'pink'; 
-		}
-		container.onmouseout = function(){
-		  container.style.backgroundColor = 'white'; 
-		}
-
-		container.onclick = function(){
-		  console.log('buttonClicked');
-		}
-
-		return container;
-		}
-		});
-
-		map.addControl(new show2013);
-		map.addControl(new show2008);
-		map.addControl(new show2002);
 
 		//var map;
 		//var readyState = function(e){
@@ -309,8 +277,8 @@
 		//window.addEventListener('DOMContentLoaded', readyState);
 
 		
-		</script>
+	</script>
 
-	</body>
+</body>
 
 </html>
