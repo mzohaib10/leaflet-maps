@@ -168,6 +168,24 @@
 			return div;
 		};
 
+		var legend2008 = L.control({position: 'bottomright'});
+
+		legend.onAdd = function (map) {
+
+			var div = L.DomUtil.create('div', 'info legend'),
+			parties = ['Pakistan Peoples Party Parliamentarians', 'Pakistan Muslim League (N)', 'Pakistan Muslim League (Q)', 'Awami National Party', 'Mutthida Majlis-e-Amal Pakistan (MMA)', 'Muttahida Qaumi Movement Pakistan', 'Independent', 'Other'],
+			labels = [];
+
+			for (var i = 0; i < parties.length; i++) {
+
+				labels.push(
+					'<i class="circle" style="background:' + getColor(parties[i]) + '"></i> ' + (parties[i] ? parties[i] + '<br>' : '+'));
+			}
+
+			div.innerHTML = labels.join('<br>');
+			return div;
+		};
+
 		legend.addTo(map);
 
 
@@ -180,7 +198,7 @@
 			d == 'Pakistan Peoples Party Parliamentarians'  ? '#7570b3' :
 			d == 'Jamiat Ulama-e-Islam (F)'  ? '#e7298a' :
 			d == 'Muttahidda Qaumi Movement'  ? '#a6761d' :
-			d == 'Muttahida Qaumi Movement'  ? '#a6761d' :
+			d == 'Muttahida Qaumi Movement Pakistan'  ? '#a6761d' :
 			d == 'Pakistan Muslim League (Q)' ? '#1f78b4' :
 			d == 'Mutthida Majlis-e-Amal Pakistan (MMA)' ? '#e41a1c' : //'#e31a1c'
 			d == 'Muttahidda Majlis-e-Amal Pakistan' ? '#e41a1c' : //'#e31a1c'
