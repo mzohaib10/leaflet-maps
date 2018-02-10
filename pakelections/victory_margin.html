@@ -141,7 +141,7 @@
 		};
 
 		info.update = function (props) {
-			this._div.innerHTML =  (props ? props.attributes_na_name + '<h4>Winning Party: </h4>' + props.attributes_winner_party + '<h4>Winning Candidate: </h4>' + props.attributes_winner + '<h4> Runner-up Party: </h4>' + props.attributes_runnerup_party + '<h4>Runner-up Candidate: </h4>' + props.attributes_runnerup + '<h4>Victory Margin: </h4>' + props.attributes_victory_margin + ' % <h4>Turnout: </h4>' + (Math.round(props.attributes_turn_out * 10 )/10).toFixed(1) + '%'
+			this._div.innerHTML =  (props ? props.attributes_na_name + '<h4>Winning Party: </h4>' + props.attributes_winner_party + '<h4>Winning Candidate: </h4>' + props.attributes_winner + '<h4> Runner-up Party: </h4>' + props.attributes_runnerup_party + '<h4>Runner-up Candidate: </h4>' + props.attributes_runnerup + '<h4>Victory Margin: </h4>' + (Math.round(props.attributes_victory_margin * 100 )/100).toFixed(2) + ' % <h4>Turnout: </h4>' + (Math.round(props.attributes_turn_out * 100 )/100).toFixed(2) + '%'
 				: 'Hover over map to see details');
 		};
 
